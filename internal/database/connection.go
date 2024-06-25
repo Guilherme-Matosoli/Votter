@@ -9,7 +9,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func Connection() {
+func Connection() (*sql.DB, error) {
 	err := godotenv.Load()
 	if err != nil {
 		panic(err)
@@ -39,5 +39,5 @@ func Connection() {
 		panic(err)
 	}
 
-	fmt.Println("Database conneciton successfully!")
+	return conn, err
 }
