@@ -17,11 +17,11 @@ func Connection() (*sql.DB, error) {
 
 	DB_HOST := os.Getenv("DB_HOST")
 	DB_PORT := os.Getenv("DB_PORT")
-	DB_NAME := os.Getenv("DB-NAME")
+	DB_NAME := os.Getenv("DB_NAME")
 	DB_PASS := os.Getenv("DB_PASS")
 	DB_USER := os.Getenv("DB_USER")
 
-	config := fmt.Sprintf("host=%s port=%s user=%s password=%s db_name=%s sslmode=disable",
+	config := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		DB_HOST,
 		DB_PORT,
 		DB_USER,
