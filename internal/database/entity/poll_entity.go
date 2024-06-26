@@ -3,11 +3,11 @@ package entity
 import "github.com/google/uuid"
 
 type poll struct {
-	Id          string
-	Description string
-	Title       string
-	Created_at  string
-	Total_votes int
+	Id          string `json:"id"`
+	Description string `json:"description"`
+	Title       string `json:"title"`
+	Created_at  string `json:"created_at`
+	Total_votes int    `json:"total_votes"`
 }
 
 func CreatePoll(description string, title string, created_at string) *poll {
