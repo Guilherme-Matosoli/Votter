@@ -23,7 +23,7 @@ func RunMigration() {
   		description TEXT NOT NULL,
 		)`,
 
-		`CREATE TABLE IF NOT EXISTS ips (
+		`CREATE TABLE IF NOT EXISTS votes (
 			id VARCHAR PRIMARY KEY,
 			ip_address VARCHAR NOT NULL,
 			voted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
