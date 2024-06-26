@@ -9,7 +9,7 @@ type poll struct {
 	Total_votes int    `json:"total_votes"`
 }
 
-func CreatePoll(description string, title string, created_at string) *poll {
+func NewPoll(description string, title string, created_at string) *poll {
 	return &poll{
 		Id:         uuid.New().String(),
 		Title:      title,
