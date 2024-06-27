@@ -7,13 +7,7 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
 )
 
-type questionPropertys struct {
-	Poll_id     string
-	Description string
-	Title       string
-}
-
-func CreateQuestion(db *sql.DB, props *questionPropertys) (string, error) {
+func CreateQuestion(db *sql.DB, props *entity.Question) (string, error) {
 	newQuestion := entity.NewQuestion(props.Poll_id, props.Description, props.Title)
 
 	_, err := db.Exec("INSERT INTO questions (id, poll_id, title, description, title) VALUES ($1,$2,$3, $4)",
