@@ -7,14 +7,14 @@ import (
 	"github.com/google/uuid"
 )
 
-type poll struct {
+type Poll struct {
 	Id         string    `json:"id"`
 	Title      string    `json:"title"`
 	Created_at time.Time `json:"created_at"`
 }
 
-func NewPoll(title string) *poll {
-	return &poll{
+func NewPoll(title string) *Poll {
+	return &Poll{
 		Id:         uuid.New().String(),
 		Title:      title,
 		Created_at: utils.GetTime(),
