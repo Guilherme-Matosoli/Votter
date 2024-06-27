@@ -14,7 +14,7 @@ type pollPropertys struct {
 func CreatePoll(db *sql.DB, poll pollPropertys) (string, error) {
 	newPoll := entity.NewPoll(poll.Title)
 
-	_, err := db.Exec("INSERT INTO polls (id, title, created_at) values(?,?,?)", newPoll.Id, newPoll.Title, newPoll.Created_at)
+	_, err := db.Exec("INSERT INTO polls (id, title, created_at) VALUES ($1,$2,$3)", newPoll.Id, newPoll.Title, newPoll.Created_at)
 	if err != nil {
 		fmt.Println("Some error happens: ", err)
 	}
