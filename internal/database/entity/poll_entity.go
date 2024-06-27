@@ -8,10 +8,9 @@ import (
 )
 
 type poll struct {
-	Id          string    `json:"id"`
-	Title       string    `json:"title"`
-	Created_at  time.Time `json:"created_at"`
-	Total_votes int       `json:"total_votes"`
+	Id         string    `json:"id"`
+	Title      string    `json:"title"`
+	Created_at time.Time `json:"created_at"`
 }
 
 func NewPoll(title string) *poll {
