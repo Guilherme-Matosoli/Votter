@@ -4,8 +4,8 @@ import (
 	"time"
 )
 
-func ValidateTime(timeNow time.Time, lastTime time.Time) bool {
-	timeSubtraction := lastTime.Sub(timeNow)
+func ValidateTime(lastTime time.Time) bool {
+	timeSubtraction := lastTime.Sub(GetTime())
 	maxTime := 24 * time.Hour
 
 	if timeSubtraction < maxTime {
