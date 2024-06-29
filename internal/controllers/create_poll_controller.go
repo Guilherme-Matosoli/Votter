@@ -23,19 +23,26 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 	conn, error := database.Connection()
 	if error != nil {
 		fmt.Println("error happen: ", error)
-		panic(error)
+
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		return
 	}
 
 	var input requestBody
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 	if err != nil {
-		fmt.Println("error has happen: ", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		return
 	}
 
 	msg, err := services.CreatePoll(conn, &input.Info, input.Questions)
 	if err != nil {
-		fmt.Println("error: ", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		return
 	}
 
 	responseMessage, err := json.Marshal(response{Message: msg})
