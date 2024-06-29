@@ -13,7 +13,7 @@ func main() {
 
 	r := chi.NewRouter()
 
-	r.Post("/teste", controllers.CreatePollController)
+	r.Post("/poll/create", controllers.CreatePollController)
 
 	http.ListenAndServe(":4000", r)
 }
