@@ -31,5 +31,5 @@ func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
 		fmt.Println("Error has happen on create_vote_service: ", err)
 	}
 
-	return "Success", err
+	return "Success", error
 }
