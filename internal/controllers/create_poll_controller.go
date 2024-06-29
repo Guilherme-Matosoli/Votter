@@ -15,6 +15,10 @@ type requestBody struct {
 	Questions []entity.Question `json:"questions"`
 }
 
+type response struct {
+	Message string `json:"message"`
+}
+
 func CreatePollController(w http.ResponseWriter, r *http.Request) {
 	conn, error := database.Connection()
 	if error != nil {
@@ -34,7 +38,9 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error: ", err)
 	}
 
+	responseMessage, err := json.Marshal(response{Message: msg})
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(msg)
+	w.Write(responseMessage)
 }
