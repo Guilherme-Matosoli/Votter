@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/Guilherme-Matosoli/votter/internal/controllers"
 	"github.com/Guilherme-Matosoli/votter/internal/database"
 	"github.com/go-chi/chi"
 )
@@ -12,9 +13,7 @@ func main() {
 
 	r := chi.NewRouter()
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, world"))
-	})
+	r.Post("/teste", controllers.CreatePollController)
 
 	http.ListenAndServe(":4000", r)
 }
