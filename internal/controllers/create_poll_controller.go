@@ -22,7 +22,7 @@ type response struct {
 func CreatePollController(w http.ResponseWriter, r *http.Request) {
 	conn, error := database.Connection()
 	if error != nil {
-		fmt.Println("error happen: ", error)
+		fmt.Println("error try connect in db happen: ", error)
 
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
