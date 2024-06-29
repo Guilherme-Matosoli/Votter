@@ -7,7 +7,7 @@ import (
 
 	"github.com/Guilherme-Matosoli/votter/internal/database"
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
-	//"github.com/Guilherme-Matosoli/votter/internal/services"
+	"github.com/Guilherme-Matosoli/votter/internal/services"
 )
 
 type requestBody struct {
@@ -16,7 +16,7 @@ type requestBody struct {
 }
 
 func CreatePollController(w http.ResponseWriter, r *http.Request) {
-	_, error := database.Connection()
+	conn, error := database.Connection()
 	if error != nil {
 		fmt.Println("error happen: ", error)
 		panic(error)
@@ -29,7 +29,12 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error has happen: ", err)
 	}
 
-	fmt.Println("infos: ", input.Info)
-	fmt.Println("questions: ", input.Questions)
+	msg, err := services.CreatePoll(conn, &input.Info, input.Questions)
+	if err != nil {
+		fmt.Println("error: ", err)
+	}
 
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(msg)
 }
