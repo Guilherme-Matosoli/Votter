@@ -1,7 +1,16 @@
 package utils
 
-import "time"
+import (
+	"time"
+)
 
 func ValidateTime(timeNow time.Time, lastTime time.Time) bool {
-	return false
+	timeSubtraction := lastTime.Sub(timeNow)
+	maxTime := 24 * time.Hour
+
+	if timeSubtraction < maxTime {
+		return false
+	}
+
+	return true
 }
