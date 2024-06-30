@@ -28,7 +28,8 @@ func RunMigration() {
 			id VARCHAR PRIMARY KEY,
 			ip_address VARCHAR NOT NULL,
 			voted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			poll_id VARCHAR REFERENCES polls(id) ON DELETE CASCADE
+			poll_id VARCHAR REFERENCES polls(id) ON DELETE CASCADE,
+			voted_in VARCHAR REFERENCES questions(id) ON DELETE CASCADE
 		)
 		`,
 	}
