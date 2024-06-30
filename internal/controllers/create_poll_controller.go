@@ -10,7 +10,7 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/services"
 )
 
-type requestBody struct {
+type createPollRequestBody struct {
 	Info      entity.Poll       `json:"info"`
 	Questions []entity.Question `json:"questions"`
 }
@@ -29,7 +29,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var input requestBody
+	var input createPollRequestBody
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 	if err != nil {
