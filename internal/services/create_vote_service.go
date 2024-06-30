@@ -22,7 +22,7 @@ func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
 		return "Ip already vote in the last 24h", err
 	}
 
-	newVote := entity.NewVote(props.Ip_address, props.Poll_id)
+	newVote := entity.NewVote(props.Ip_address, props.Poll_id, props.Voted_in)
 
 	_, error := db.Exec("INSERT INTO votes (id, ip_address, voted_at, poll_id) VALUES ($1, $2, $3, $4)",
 		newVote.Id, newVote.Ip_address, newVote.Voted_at, newVote.Poll_id)
