@@ -7,6 +7,11 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
 )
 
+type question struct {
+	*entity.Question
+	Votes int `json:"votes"`
+}
+
 func GetQuestion(db *sql.DB, poll_id string) ([]*entity.Question, error) {
 	var questionsList []*entity.Question
 
