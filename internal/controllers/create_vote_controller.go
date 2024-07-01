@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Guilherme-Matosoli/votter/internal/database"
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
+	"github.com/Guilherme-Matosoli/votter/internal/services"
 	"github.com/Guilherme-Matosoli/votter/internal/utils"
 )
 
@@ -16,9 +18,32 @@ type createVoteRequestBody struct {
 }
 
 func CreateVoteController(w http.ResponseWriter, r *http.Request) {
+	conn, err := database.Connection()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
+
+		fmt.Println("Error happens in create_vote_controller: ", err)
+		return
+	}
+
 	ip := utils.GetIp(r)
 	input := entity.Vote{Ip_address: ip}
 	json.NewDecoder(r.Body).Decode(&input)
 
-	fmt.Println(input)
+	json.NewDecoder(r.Body).Decode(&input)
+
+	msg, err := services.CreateVote(conn, &input)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
+
+		fmt.Println("Error happens in create_vote_controller: ", err)
+		return
+
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+	json.NewEncoder(w).Encode(&response{Message: msg})
 }
