@@ -8,11 +8,11 @@ import (
 )
 
 type Vote struct {
-	Id         string
-	Ip_address string
-	Voted_at   time.Time
-	Voted_in   string
-	Poll_id    string
+	Id         string    `json:"id"`
+	Ip_address string    `json:"ip_address"`
+	Voted_at   time.Time `json:"voted_at"`
+	Voted_in   string    `json:"voted_in"`
+	Poll_id    string    `json:"poll_id"`
 }
 
 func NewVote(ip_address string, poll_id string, voted_in string) *Vote {
