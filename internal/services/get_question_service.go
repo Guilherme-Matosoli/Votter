@@ -12,8 +12,8 @@ type question struct {
 	Votes int `json:"votes"`
 }
 
-func GetQuestion(db *sql.DB, poll_id string) ([]*entity.Question, error) {
-	var questionsList []*entity.Question
+func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
+	var questionsList []*question
 
 	questions, err := db.Query(`SELECT * FROM questions WHERE poll_id = $1`, poll_id)
 	if err != nil {
@@ -22,7 +22,7 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*entity.Question, error) {
 	}
 
 	for questions.Next() {
-		var question entity.Question
+		var question question
 
 		err := questions.Scan(&question.Id, &question.Title, &question.Description)
 		if err != nil {
