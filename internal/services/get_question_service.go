@@ -41,6 +41,8 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 			return nil, err
 		}
 
+		question.Votes = len(votes.Votes)
+
 		questionsList = append(questionsList, &question)
 	}
 
