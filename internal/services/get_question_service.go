@@ -15,11 +15,12 @@ type question struct {
 func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 	var questionsList []*question
 
-	questions, err := db.Query(`SELECT *, votes 
-	 														FROM questions
-															LEFT JOIN votes
-															ON votes.voted_in = questions.Id
-															WHERE poll_id = $1`, poll_id)
+	query := `SELECT *, votes
+	 					FROM questions
+						LEFT JOIN votes
+						ON votes.voted_in = questions.Id
+						WHERE poll_id = $1`
+	questions, err := db.Query(query, poll_id)
 
 	if err != nil {
 		fmt.Println("Error happens in get_poll_service: ", err)
