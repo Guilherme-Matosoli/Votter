@@ -7,6 +7,11 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
 )
 
+type poll struct {
+	*entity.Poll
+	Total_Votes int `json:"total_votes"`
+}
+
 type pollInfos struct {
 	Poll      *entity.Poll `json:"poll"`
 	Questions []*question  `json:"questions"`
