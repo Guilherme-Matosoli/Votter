@@ -9,13 +9,18 @@ import (
 
 type question struct {
 	*entity.Question
-	Votes int `json:"votes"`
+	Votes []*entity.Vote `json:"votes"`
 }
 
 func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 	var questionsList []*question
 
-	questions, err := db.Query(`SELECT * FROM questions WHERE poll_id = $1`, poll_id)
+	questions, err := db.Query(`SELECT *, votes 
+	 														FROM questions
+															LEFT JOIN votes
+															ON votes.voted_in = questions.Id
+															WHERE poll_id = $1`, poll_id)
+
 	if err != nil {
 		fmt.Println("Error happens in get_poll_service: ", err)
 		return nil, err
@@ -24,7 +29,9 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 	for questions.Next() {
 		var question question
 
-		err := questions.Scan(&question.Id, &question.Title, &question.Description)
+		fmt.Println(question.Votes)
+
+		err := questions.Scan(&question.Id, &question.Title, &question.Description, &question.Votes)
 		if err != nil {
 			fmt.Println("Error happen in get_poll_service: ", err)
 			return nil, err
