@@ -9,7 +9,11 @@ import (
 
 type question struct {
 	*entity.Question
-	Votes []*entity.Vote `json:"votes"`
+	Votes int `json:"votes"`
+}
+
+type vote struct {
+	Votes []*entity.Vote
 }
 
 func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
@@ -29,10 +33,9 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 
 	for questions.Next() {
 		var question question
+		var votes vote
 
-		fmt.Println(question.Votes)
-
-		err := questions.Scan(&question.Id, &question.Title, &question.Description, &question.Votes)
+		err := questions.Scan(&question.Id, &question.Title, &question.Description, &question.Votes, &votes.Votes)
 		if err != nil {
 			fmt.Println("Error happen in get_poll_service: ", err)
 			return nil, err
