@@ -13,8 +13,8 @@ type poll struct {
 }
 
 type pollInfos struct {
-	Poll      *entity.Poll `json:"poll"`
-	Questions []*question  `json:"questions"`
+	Poll      poll        `json:"poll"`
+	Questions []*question `json:"questions"`
 }
 
 func GetPoll(db *sql.DB, poll_id string) (string, error) {
