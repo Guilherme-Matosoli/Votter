@@ -25,9 +25,11 @@ func GetPoll(db *sql.DB, poll_id string) error {
 		return err
 	}
 
+	fmt.Println("Pass from getQuestion")
+
 	poll.Questions = questions
 
-	for _, _ = range questions {
+	for range questions {
 		poll.Poll.Total_Votes += 1
 	}
 
