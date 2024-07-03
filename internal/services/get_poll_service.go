@@ -27,6 +27,10 @@ func GetPoll(db *sql.DB, poll_id string) (string, error) {
 
 	poll.Questions = questions
 
+	for _, _ = range questions {
+		poll.Poll.Total_Votes += 1
+	}
+
 	row, err := db.Query(`SELECT * FROM polls WHERE id = $1`, poll_id)
 	if err != nil {
 		fmt.Println("Error happens on get_poll_service: ", err)
