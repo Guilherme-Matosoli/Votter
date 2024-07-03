@@ -10,8 +10,8 @@ import (
 )
 
 func GetPoll(w http.ResponseWriter, r *http.Request) {
-	ip := chi.URLParam(r, "id")
-	if ip == "" {
+	poll_id := chi.URLParam(r, "id")
+	if poll_id == "" {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		json.NewEncoder(w).Encode(&response{Message: "Missing ID"})
 	}
