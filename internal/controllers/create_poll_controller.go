@@ -28,6 +28,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
 		return
 	}
+	defer conn.Close()
 
 	var input createPollRequestBody
 
