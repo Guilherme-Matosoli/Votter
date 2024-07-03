@@ -18,7 +18,14 @@ type pollInfos struct {
 }
 
 func GetPoll(db *sql.DB, poll_id string) (string, error) {
-	var poll *entity.Poll
+	var poll *pollInfos
+
+	questions, err := GetQuestion(db, poll_id)
+	if err != nil {
+		return "", err
+	}
+
+	poll.Questions = questions
 
 	row, err := db.Query(`SELECT * FROM polls WHERE id = $1`, poll_id)
 	if err != nil {
