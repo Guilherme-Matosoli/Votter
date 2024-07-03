@@ -6,9 +6,16 @@ import (
 	"net/http"
 
 	"github.com/Guilherme-Matosoli/votter/internal/database"
+	"github.com/go-chi/chi"
 )
 
 func GetPoll(w http.ResponseWriter, r *http.Request) {
+	ip := chi.URLParam(r, "id")
+	if ip == "" {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(&response{Message: "Missing ID"})
+	}
+
 	conn, err := database.Connection()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
