@@ -26,6 +26,7 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error happens in create_vote_controller: ", err)
 		return
 	}
+	defer conn.Close()
 
 	ip := utils.GetIp(r)
 	input := entity.Vote{Ip_address: ip}
