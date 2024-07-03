@@ -31,8 +31,6 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 	input := entity.Vote{Ip_address: ip}
 	json.NewDecoder(r.Body).Decode(&input)
 
-	json.NewDecoder(r.Body).Decode(&input)
-
 	msg, err := services.CreateVote(conn, &input)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
