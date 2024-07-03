@@ -17,12 +17,12 @@ type pollInfos struct {
 	Questions []*question `json:"questions"`
 }
 
-func GetPoll(db *sql.DB, poll_id string) (string, error) {
+func GetPoll(db *sql.DB, poll_id string) error {
 	var poll *pollInfos
 
 	questions, err := GetQuestion(db, poll_id)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	poll.Questions = questions
@@ -34,10 +34,10 @@ func GetPoll(db *sql.DB, poll_id string) (string, error) {
 	row, err := db.Query(`SELECT * FROM polls WHERE id = $1`, poll_id)
 	if err != nil {
 		fmt.Println("Error happens on get_poll_service: ", err)
-		return "Error", err
+		return err
 	}
 
 	row.Scan(&poll)
 
-	return "", nil
+	return nil
 }
