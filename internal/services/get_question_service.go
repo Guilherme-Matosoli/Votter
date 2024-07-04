@@ -15,11 +15,12 @@ type question struct {
 func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 	var questionsList []*question
 
-	query := `SELECT *, votes
+	query := `SELECT questions.id, questions.title, questions.description, COUNT(votes.id) as votes
 	 					FROM questions
 						LEFT JOIN votes
 						ON votes.voted_in = questions.Id
-						WHERE questions.poll_id = $1`
+						WHERE questions.poll_id = $1
+						GROUP BY questions.id`
 	questions, err := db.Query(query, poll_id)
 
 	if err != nil {
