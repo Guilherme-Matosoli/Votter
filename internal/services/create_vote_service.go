@@ -12,7 +12,9 @@ func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
 	var lastVote entity.Vote
 	err := db.QueryRow(`SELECT * FROM votes WHERE "ip_address" = $1`, props.Ip_address).Scan(&lastVote.Id, &lastVote.Ip_address, &lastVote.Voted_at, &lastVote.Voted_in, &lastVote.Poll_id)
 	if err != nil {
-		fmt.Println("Error happens: ", err)
+		if err != sql.ErrNoRows {
+			fmt.Println("Erro happens on create_vote_service: ", err)
+		}
 	}
 
 	validTimeToVote := utils.ValidateTime(lastVote.Voted_at)
