@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/Guilherme-Matosoli/votter/internal/database"
+	"github.com/Guilherme-Matosoli/votter/internal/services"
 	"github.com/go-chi/chi"
 )
 
@@ -21,9 +22,20 @@ func GetPoll(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 
-		fmt.Println("Error happens in create_vote_controller: ", err)
+		fmt.Println("Error happens in get_poll_controller: ", err)
 		return
 	}
 	defer conn.Close()
 
+	poll, error := services.GetPoll(conn, poll_id)
+	if error != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
+
+		fmt.Println("Error happens in get_poll_controller: ", error)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(poll)
 }
