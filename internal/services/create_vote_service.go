@@ -5,19 +5,13 @@ import (
 	"fmt"
 
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
-	"github.com/Guilherme-Matosoli/votter/internal/utils"
 )
 
 func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
-	var lastVote entity.Vote
-	err := db.QueryRow(`SELECT * FROM votes WHERE "ip_address" = $1`, props.Ip_address).Scan(&lastVote.Id, &lastVote.Ip_address, &lastVote.Voted_at, &lastVote.Voted_in, &lastVote.Poll_id)
+	validTimeToVote, err := GetLastVote(db, props.Ip_address)
 	if err != nil {
-		if err != sql.ErrNoRows {
-			fmt.Println("Erro happens on create_vote_service: ", err)
-		}
+		return "", err
 	}
-
-	validTimeToVote := utils.ValidateTime(lastVote.Voted_at)
 
 	if !validTimeToVote {
 		return "Ip already vote in the last 24h", err
