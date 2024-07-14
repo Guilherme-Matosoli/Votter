@@ -20,4 +20,5 @@ func main() {
 	r.Post("/vote/create", controllers.CreateVoteController)
 
 	http.ListenAndServe(":4000", r)
+	fmt.Println("Server is running on port 4000 :rocket:")
 }
