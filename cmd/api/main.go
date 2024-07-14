@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Guilherme-Matosoli/votter/internal/controllers"
@@ -10,6 +11,7 @@ import (
 
 func main() {
 	database.RunMigration()
+	fmt.Println("Database connection successfully")
 
 	r := chi.NewRouter()
 
