@@ -16,7 +16,7 @@ func CreatePoll(db *sql.DB, poll *entity.Poll, questions []entity.Question) (str
 	}
 
 	for _, question := range questions {
-		props := &entity.Question{Poll_id: newPoll.Id, Description: question.Description, Title: question.Title}
+		props := &entity.Question{Poll_id: newPoll.Id, Option: question.Option}
 
 		_, err := CreateQuestion(db, props)
 		if err != nil {
