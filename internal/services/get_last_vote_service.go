@@ -13,7 +13,7 @@ func GetLastVote(db *sql.DB, ip string) (bool, error) {
 	err := db.QueryRow(`SELECT * FROM votes WHERE "ip_address" = $1`, ip).Scan(&lastVote.Id, &lastVote.Ip_address, &lastVote.Voted_at, &lastVote.Voted_in, &lastVote.Poll_id)
 	if err != nil {
 		if err != sql.ErrNoRows {
-			fmt.Println("Erro happens on create_vote_service: ", err)
+			fmt.Println("Erro happens on get_last_vote_service: ", err)
 			return false, nil
 		}
 
