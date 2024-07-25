@@ -16,6 +16,7 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/poll/{id}", controllers.GetPoll)
+	r.Get("/getvote/{id}", controllers.GetUserVote)
 	r.Post("/poll/create", controllers.CreatePollController)
 	r.Post("/vote/create", controllers.CreateVoteController)
 
