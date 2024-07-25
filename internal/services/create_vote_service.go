@@ -7,14 +7,14 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/database/entity"
 )
 
-func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
-	validTimeToVote, err := GetLastVote(db, props.Ip_address)
+func CreateVote(db *sql.DB, props *entity.Vote) (*entity.Vote, error) {
+	vote, err := GetUserVote(db, props.Ip_address, props.Poll_id)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	if !validTimeToVote {
-		return "Ip already vote in the last 24h", err
+	if vote != nil {
+		return nil, err
 	}
 
 	newVote := entity.NewVote(props.Ip_address, props.Poll_id, props.Voted_in)
@@ -26,5 +26,5 @@ func CreateVote(db *sql.DB, props *entity.Vote) (string, error) {
 		fmt.Println("Error has happen on create_vote_service: ", err)
 	}
 
-	return "Success", error
+	return newVote, error
 }

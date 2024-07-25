@@ -17,6 +17,11 @@ type createVoteRequestBody struct {
 	Voted_in   string `json:"voted_in"`
 }
 
+type responseWithVote struct {
+	Message string       `json:"message"`
+	Vote    *entity.Vote `json:"vote"`
+}
+
 func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 	conn, err := database.Connection()
 	if err != nil {
@@ -32,7 +37,7 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 	input := entity.Vote{Ip_address: ip}
 	json.NewDecoder(r.Body).Decode(&input)
 
-	msg, err := services.CreateVote(conn, &input)
+	vote, err := services.CreateVote(conn, &input)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
@@ -44,5 +49,5 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(201)
-	json.NewEncoder(w).Encode(&response{Message: msg})
+	json.NewEncoder(w).Encode(&responseWithVote{Message: "Success", Vote: vote})
 }
