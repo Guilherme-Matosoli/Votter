@@ -20,7 +20,7 @@ func RunMigration() {
 		`CREATE TABLE IF NOT EXISTS questions (
   		id VARCHAR PRIMARY KEY,
   		poll_id VARCHAR REFERENCES polls(id) ON DELETE CASCADE,
-  		option TEXT NOT NULL,
+  		option TEXT NOT NULL
 		)`,
 
 		`CREATE TABLE IF NOT EXISTS votes (
@@ -38,6 +38,7 @@ func RunMigration() {
 
 		if err != nil {
 			fmt.Println("Error has happen: ", err)
+			panic(err)
 		}
 	}
 
