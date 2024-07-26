@@ -12,7 +12,7 @@ import (
 func Connection() (*sql.DB, error) {
 	err := godotenv.Load()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 
 	DB_HOST := os.Getenv("DB_HOST")
