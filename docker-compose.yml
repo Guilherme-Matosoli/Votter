@@ -1,6 +1,16 @@
 version: '3.1'
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+
+    depends_on: 
+      - db
+    restart: always
   db: 
     image: postgres
     restart: always
@@ -12,9 +22,12 @@ services:
     volumes:
       - /var/lib/postgres/data
   nginx:
-    image: nginx:lastest
+    image: nginx:latest
     container_name: nginx
     ports: 
       - 80:80
     volumes:
-      ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on: 
+      - app
+    restart: always
