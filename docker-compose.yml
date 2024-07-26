@@ -11,6 +11,12 @@ services:
     depends_on: 
       - db
     restart: always
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_PASS: postgres
+      DB_USER: postgres
   db: 
     image: postgres
     restart: always
