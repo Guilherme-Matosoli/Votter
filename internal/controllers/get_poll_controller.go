@@ -36,6 +36,12 @@ func GetPoll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if poll == nil {
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(&response{Message: "Poll doesn't exist"})
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(poll)
 }
