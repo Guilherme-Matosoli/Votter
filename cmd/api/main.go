@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -10,21 +9,11 @@ import (
 	"github.com/go-chi/chi"
 )
 
-type response struct {
-	Ip string `json:"ip"`
-}
-
 func main() {
 	database.RunMigration()
 	fmt.Println("Database connection successfully")
 
 	r := chi.NewRouter()
-
-	r.Get("/ip", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(r.Header.Get("x-real-ip"))
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(&response{Ip: r.Header.Get("x-real-ip")})
-	})
 
 	r.Get("/poll/{id}", controllers.GetPoll)
 	r.Get("/getvote/{id}", controllers.GetUserVote)
