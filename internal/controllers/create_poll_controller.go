@@ -19,6 +19,10 @@ type response struct {
 	Message string `json:"message"`
 }
 
+type pollid struct {
+	Id string `json:"id"`
+}
+
 func CreatePollController(w http.ResponseWriter, r *http.Request) {
 	conn, error := database.Connection()
 	if error != nil {
@@ -39,14 +43,14 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg, err := services.CreatePoll(conn, &input.Info, input.Questions)
+	id, err := services.CreatePoll(conn, &input.Info, input.Questions)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
 		return
 	}
 
-	responseMessage, err := json.Marshal(response{Message: msg})
+	responseMessage, err := json.Marshal(&pollid{Id: id})
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)

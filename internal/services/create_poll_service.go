@@ -13,6 +13,7 @@ func CreatePoll(db *sql.DB, poll *entity.Poll, questions []entity.Question) (str
 	_, err := db.Exec("INSERT INTO polls (id, title, created_at) VALUES ($1,$2,$3)", newPoll.Id, newPoll.Title, newPoll.Created_at)
 	if err != nil {
 		fmt.Println("Some error happens: ", err)
+		return "", err
 	}
 
 	for _, question := range questions {
@@ -24,5 +25,5 @@ func CreatePoll(db *sql.DB, poll *entity.Poll, questions []entity.Question) (str
 		}
 	}
 
-	return "Poll created", err
+	return newPoll.Id, err
 }
