@@ -10,10 +10,7 @@ import (
 )
 
 func Connection() (*sql.DB, error) {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println(err)
-	}
+	godotenv.Load()
 
 	DB_HOST := os.Getenv("DB_HOST")
 	DB_PORT := os.Getenv("DB_PORT")
