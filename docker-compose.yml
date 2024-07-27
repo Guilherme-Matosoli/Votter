@@ -27,6 +27,12 @@ services:
       - 5432:5432
     volumes:
       - /var/lib/postgres/data
+  websocket:
+    build:
+      context: ./services/websocket/
+      dockerfile: Dockerfile
+    ports:
+      - 4001:4001
   nginx:
     image: nginx:latest
     container_name: nginx
