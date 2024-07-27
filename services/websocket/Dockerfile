@@ -1,9 +1,13 @@
-FROM node:latest-alpine
+FROM node:22.5-alpine as node
 
-WORKDIR /root/
+WORKDIR /home/node/app
 
-COPY /package.json .
+COPY /package*.json ./
 
 RUN npm i
 
-COPY . .
+COPY . ./
+
+EXPOSE 4001
+
+CMD ["node", "./src/index.js"]
