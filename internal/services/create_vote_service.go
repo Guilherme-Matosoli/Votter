@@ -23,7 +23,7 @@ func CreateVote(db *sql.DB, props *entity.Vote) (*entity.Vote, error) {
 		newVote.Id, newVote.Ip_address, newVote.Voted_at, newVote.Voted_in, newVote.Poll_id)
 
 	if error != nil {
-		fmt.Println("Error has happen on create_vote_service: ", err)
+		fmt.Println("Error in create_vote_service: ", err)
 	}
 
 	return newVote, error

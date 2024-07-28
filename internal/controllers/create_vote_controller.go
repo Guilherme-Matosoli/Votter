@@ -28,7 +28,7 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 
-		fmt.Println("Error happens in create_vote_controller: ", err)
+		fmt.Println("Error in create_vote_controller: ", err)
 		return
 	}
 	defer conn.Close()
@@ -42,7 +42,7 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 
-		fmt.Println("Error happens in create_vote_controller: ", err)
+		fmt.Println("Error in create_vote_controller: ", err)
 		return
 	}
 
