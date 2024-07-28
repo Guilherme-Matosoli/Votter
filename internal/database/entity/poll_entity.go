@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/Guilherme-Matosoli/votter/internal/utils"
-	"github.com/google/uuid"
 )
 
 type Poll struct {
