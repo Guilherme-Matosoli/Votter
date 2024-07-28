@@ -45,6 +45,12 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(input.Questions) < 2 {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(&response{Message: "Minimum of 2 questions"})
+		return
+	}
+
 	id, err := services.CreatePoll(conn, &input.Info, input.Questions)
 	if err != nil {
 		fmt.Println("Error in create poll controller: ", err)
