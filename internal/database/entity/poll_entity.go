@@ -15,7 +15,7 @@ type Poll struct {
 
 func NewPoll(title string) *Poll {
 	return &Poll{
-		Id:         uuid.New().String(),
+		Id:         utils.GenId(),
 		Title:      title,
 		Created_at: utils.GetTime(),
 	}
