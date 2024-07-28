@@ -26,7 +26,7 @@ type pollid struct {
 func CreatePollController(w http.ResponseWriter, r *http.Request) {
 	conn, error := database.Connection()
 	if error != nil {
-		fmt.Println("error try connect in db happen: ", error)
+		fmt.Println("Error try connect db: ", error)
 
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
@@ -38,6 +38,8 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&input)
 	if err != nil {
+		fmt.Println("Error in create poll controller: ", err)
+
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
 		return
@@ -45,6 +47,8 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 
 	id, err := services.CreatePoll(conn, &input.Info, input.Questions)
 	if err != nil {
+		fmt.Println("Error in create poll controller: ", err)
+
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
 		return

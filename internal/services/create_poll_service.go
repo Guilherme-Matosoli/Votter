@@ -12,7 +12,7 @@ func CreatePoll(db *sql.DB, poll *entity.Poll, questions []entity.Question) (str
 
 	_, err := db.Exec("INSERT INTO polls (id, title, created_at) VALUES ($1,$2,$3)", newPoll.Id, newPoll.Title, newPoll.Created_at)
 	if err != nil {
-		fmt.Println("Some error happens: ", err)
+		fmt.Println("Error in create poll service: ", err)
 		return "", err
 	}
 
@@ -21,7 +21,7 @@ func CreatePoll(db *sql.DB, poll *entity.Poll, questions []entity.Question) (str
 
 		_, err := CreateQuestion(db, props)
 		if err != nil {
-			fmt.Println("Error has happen on create_poll_service: ", err)
+			fmt.Println("Error in create_poll_service: ", err)
 		}
 	}
 
