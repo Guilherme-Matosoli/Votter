@@ -29,7 +29,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error try connect db: ", error)
 
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 		return
 	}
 	defer conn.Close()
@@ -41,7 +41,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error in create poll controller: ", err)
 
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 		return
 	}
 
@@ -56,7 +56,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error in create poll controller: ", err)
 
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(response{Message: "Internal Server Error"})
+		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 		return
 	}
 
