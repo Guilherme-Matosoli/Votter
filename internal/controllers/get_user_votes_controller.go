@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/Guilherme-Matosoli/votter/internal/database"
@@ -21,12 +22,16 @@ func GetUserVote(w http.ResponseWriter, r *http.Request) {
 
 	conn, err := database.Connection()
 	if err != nil {
+		fmt.Println("Error in get user votes controller: ", err)
+
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 	}
 
 	vote, err := services.GetUserVote(conn, id, ip)
 	if err != nil {
+		fmt.Println("Error in get user votes controller: ", err)
+
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 	}

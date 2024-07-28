@@ -15,7 +15,7 @@ func CreateQuestion(db *sql.DB, props *entity.Question) (string, error) {
 	)
 
 	if err != nil {
-		fmt.Println("Error happens on create_question_service: ", err)
+		fmt.Println("Error in create_question_service: ", err)
 	}
 
 	return "Question created", err

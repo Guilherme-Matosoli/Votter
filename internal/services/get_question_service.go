@@ -23,7 +23,7 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 	questions, err := db.Query(query, poll_id)
 
 	if err != nil {
-		fmt.Println("Error happens in get_question_service: ", err)
+		fmt.Println("Error in get_question_service: ", err)
 		return nil, err
 	}
 
@@ -32,14 +32,14 @@ func GetQuestion(db *sql.DB, poll_id string) ([]*question, error) {
 
 		err := questions.Scan(&question.Id, &question.Option, &question.Votes)
 		if err != nil {
-			fmt.Println("Error happens in get_question_service (loop quesitons) ", err)
+			fmt.Println("Error in get_question_service (loop quesitons) ", err)
 		}
 
 		questionsList = append(questionsList, question)
 	}
 
 	if err = questions.Err(); err != nil {
-		fmt.Println("erro happens: ", err)
+		fmt.Println("Error in get quetion service: ", err)
 		return nil, nil
 	}
 
