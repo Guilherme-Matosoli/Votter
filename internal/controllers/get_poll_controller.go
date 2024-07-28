@@ -22,7 +22,7 @@ func GetPoll(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 
-		fmt.Println("Error happens in get_poll_controller: ", err)
+		fmt.Println("Error in get_poll_controller: ", err)
 		return
 	}
 	defer conn.Close()
@@ -32,7 +32,7 @@ func GetPoll(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(&response{Message: "Internal Server Error"})
 
-		fmt.Println("Error happens in get_poll_controller: ", error)
+		fmt.Println("Error in get_poll_controller: ", error)
 		return
 	}
 

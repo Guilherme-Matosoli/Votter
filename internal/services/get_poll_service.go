@@ -28,7 +28,7 @@ func GetPoll(db *sql.DB, poll_id string) (*poll, error) {
 
 	error := db.QueryRow(`SELECT id, title FROM polls WHERE id = $1`, poll_id).Scan(&poll.Id, &poll.Title)
 	if error != nil && error != sql.ErrNoRows {
-		fmt.Println("Error happens on get_poll_service: ", err)
+		fmt.Println("Error in get_poll_service: ", err)
 		return poll, error
 	}
 
