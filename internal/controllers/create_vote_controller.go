@@ -44,7 +44,11 @@ func CreateVoteController(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Println("Error happens in create_vote_controller: ", err)
 		return
+	}
 
+	if vote == nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(&response{Message: "User already voted"})
 	}
 
 	w.Header().Set("Content-Type", "application/json")

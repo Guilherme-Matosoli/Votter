@@ -14,7 +14,7 @@ func CreateVote(db *sql.DB, props *entity.Vote) (*entity.Vote, error) {
 	}
 
 	if vote != nil {
-		return nil, err
+		return nil, nil
 	}
 
 	newVote := entity.NewVote(props.Ip_address, props.Poll_id, props.Voted_in)
