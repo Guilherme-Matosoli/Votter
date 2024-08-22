@@ -11,7 +11,7 @@ import (
 )
 
 type createPollRequestBody struct {
-	Info      entity.Poll       `json:"info"`
+	Title     string            `json:"title"`
 	Questions []entity.Question `json:"questions"`
 }
 
@@ -51,7 +51,7 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := services.CreatePoll(conn, &input.Info, input.Questions)
+	id, err := services.CreatePoll(conn, input.Title, input.Questions)
 	if err != nil {
 		fmt.Println("Error in create poll controller: ", err)
 
