@@ -45,6 +45,12 @@ func CreatePollController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(input.Title) < 1 {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(&response{Message: "Title is missing"})
+		return
+	}
+
 	if len(input.Questions) < 2 {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		json.NewEncoder(w).Encode(&response{Message: "Minimum of 2 questions"})
