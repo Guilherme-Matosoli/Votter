@@ -7,6 +7,7 @@ import (
 	"github.com/Guilherme-Matosoli/votter/internal/controllers"
 	"github.com/Guilherme-Matosoli/votter/internal/database"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/cors"
 )
 
 func main() {
@@ -14,6 +15,9 @@ func main() {
 	fmt.Println("Database connection successfully")
 
 	r := chi.NewRouter()
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"https://*", "http://*"},
+	}))
 
 	r.Get("/poll/{id}", controllers.GetPoll)
 	r.Get("/getvote/{id}", controllers.GetUserVote)
